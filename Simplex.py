@@ -2,16 +2,17 @@ import numpy as np
 
 
 def pivot():
-    l = list(d[0][:-2])
-    jnum = l.index(max(l))  # 转入列编号
+    l = list(d[0][:-1])
+    jnum = l.index(max(l))  # 找到主元的列编号
     m = []
-    for i in range(bn):
+    for i in range(bn):  # 求θ,从θ中选出非0最小的
         if d[i][jnum] == 0:
             m.append(0.)
         else:
             m.append(d[i][-1] / d[i][jnum])
-    inum = m.index(min([x for x in m[1:] if x != 0]))  # 转出下标
-    s[inum - 1] = jnum
+    inum = m.index(min([x for x in m[1:] if x != 0]))  # 找到主元的行编号
+    s[inum - 1] = jnum  # 基向量的转出转入
+    # 对于jnum,变inum为单位1,其余行变成0
     r = d[inum][jnum]
     d[inum] = d[inum] / r
     for i in [x for x in range(bn) if x != inum]:
